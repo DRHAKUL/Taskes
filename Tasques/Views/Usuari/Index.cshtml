@@ -1,0 +1,34 @@
+﻿
+<h2>Index</h2>
+<p>
+    <select id="tasks" class="form-control"></select>
+</p>
+
+<table class="table" id="userTasks"></table>
+@section Scripts
+{
+    <script>
+    $(function () {
+        buildTaskSelector();
+       
+    });
+
+
+    function buildTaskSelector(){
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("getTasks")",
+            content: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (d) {
+            if (d.success == true)
+            alert('Has arribat!!');
+            else { }
+            },
+            error: function (xhr, textStatus, errorThrown) {
+            alert('Error!!');
+            }
+        });
+    }
+    </script>
+}

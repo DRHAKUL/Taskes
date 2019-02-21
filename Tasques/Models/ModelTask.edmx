@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="tasquesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="GROUPS">
+          <Key>
+            <PropertyRef Name="IDGROUP" />
+          </Key>
+          <Property Name="IDGROUP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GROUPNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TASKS">
+          <Key>
+            <PropertyRef Name="IDTASK" />
+          </Key>
+          <Property Name="IDTASK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USERGROUP">
+          <Key>
+            <PropertyRef Name="IDUSERGROUP" />
+          </Key>
+          <Property Name="IDUSERGROUP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDGROUP" Type="int" Nullable="false" />
+          <Property Name="IDUSER" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USERS">
+          <Key>
+            <PropertyRef Name="IDUSER" />
+          </Key>
+          <Property Name="IDUSER" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USERNAME" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="50" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SURNAMES" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="USERTASK">
+          <Key>
+            <PropertyRef Name="IDUSERTASK" />
+          </Key>
+          <Property Name="IDUSERTASK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDTASK" Type="int" />
+          <Property Name="IDUSER" Type="int" />
+        </EntityType>
+        <EntityType Name="USERVALUES">
+          <Key>
+            <PropertyRef Name="IDUSERVALUE" />
+          </Key>
+          <Property Name="IDUSERVALUE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VALUENAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="VALUE" Type="nvarchar" MaxLength="50" />
+          <Property Name="IDUSER" Type="int" />
+          <Property Name="IDTASK" Type="int" />
+        </EntityType>
+        <EntityContainer Name="tasquesModelStoreContainer">
+          <EntitySet Name="GROUPS" EntityType="Self.GROUPS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TASKS" EntityType="Self.TASKS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USERGROUP" EntityType="Self.USERGROUP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USERS" EntityType="Self.USERS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USERTASK" EntityType="Self.USERTASK" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USERVALUES" EntityType="Self.USERVALUES" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="tasquesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="GROUPS">
+          <Key>
+            <PropertyRef Name="IDGROUP" />
+          </Key>
+          <Property Name="IDGROUP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GROUPNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TASKS">
+          <Key>
+            <PropertyRef Name="IDTASK" />
+          </Key>
+          <Property Name="IDTASK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USERGROUP">
+          <Key>
+            <PropertyRef Name="IDUSERGROUP" />
+          </Key>
+          <Property Name="IDUSERGROUP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDGROUP" Type="Int32" Nullable="false" />
+          <Property Name="IDUSER" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USERS">
+          <Key>
+            <PropertyRef Name="IDUSER" />
+          </Key>
+          <Property Name="IDUSER" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SURNAMES" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="USERTASK">
+          <Key>
+            <PropertyRef Name="IDUSERTASK" />
+          </Key>
+          <Property Name="IDUSERTASK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDTASK" Type="Int32" />
+          <Property Name="IDUSER" Type="Int32" />
+        </EntityType>
+        <EntityType Name="USERVALUES">
+          <Key>
+            <PropertyRef Name="IDUSERVALUE" />
+          </Key>
+          <Property Name="IDUSERVALUE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VALUENAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VALUE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDUSER" Type="Int32" />
+          <Property Name="IDTASK" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="tasquesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="GROUPS" EntityType="Self.GROUPS" />
+          <EntitySet Name="TASKS" EntityType="Self.TASKS" />
+          <EntitySet Name="USERGROUP" EntityType="Self.USERGROUP" />
+          <EntitySet Name="USERS" EntityType="Self.USERS" />
+          <EntitySet Name="USERTASK" EntityType="Self.USERTASK" />
+          <EntitySet Name="USERVALUES" EntityType="Self.USERVALUES" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="tasquesModelStoreContainer" CdmEntityContainer="tasquesEntities">
+          <EntitySetMapping Name="GROUPS">
+            <EntityTypeMapping TypeName="tasquesModel.GROUPS">
+              <MappingFragment StoreEntitySet="GROUPS">
+                <ScalarProperty Name="IDGROUP" ColumnName="IDGROUP" />
+                <ScalarProperty Name="GROUPNAME" ColumnName="GROUPNAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TASKS">
+            <EntityTypeMapping TypeName="tasquesModel.TASKS">
+              <MappingFragment StoreEntitySet="TASKS">
+                <ScalarProperty Name="IDTASK" ColumnName="IDTASK" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERGROUP">
+            <EntityTypeMapping TypeName="tasquesModel.USERGROUP">
+              <MappingFragment StoreEntitySet="USERGROUP">
+                <ScalarProperty Name="IDUSERGROUP" ColumnName="IDUSERGROUP" />
+                <ScalarProperty Name="IDGROUP" ColumnName="IDGROUP" />
+                <ScalarProperty Name="IDUSER" ColumnName="IDUSER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERS">
+            <EntityTypeMapping TypeName="tasquesModel.USERS">
+              <MappingFragment StoreEntitySet="USERS">
+                <ScalarProperty Name="IDUSER" ColumnName="IDUSER" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="SURNAMES" ColumnName="SURNAMES" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERTASK">
+            <EntityTypeMapping TypeName="tasquesModel.USERTASK">
+              <MappingFragment StoreEntitySet="USERTASK">
+                <ScalarProperty Name="IDUSERTASK" ColumnName="IDUSERTASK" />
+                <ScalarProperty Name="IDTASK" ColumnName="IDTASK" />
+                <ScalarProperty Name="IDUSER" ColumnName="IDUSER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERVALUES">
+            <EntityTypeMapping TypeName="tasquesModel.USERVALUES">
+              <MappingFragment StoreEntitySet="USERVALUES">
+                <ScalarProperty Name="IDUSERVALUE" ColumnName="IDUSERVALUE" />
+                <ScalarProperty Name="VALUENAME" ColumnName="VALUENAME" />
+                <ScalarProperty Name="VALUE" ColumnName="VALUE" />
+                <ScalarProperty Name="IDUSER" ColumnName="IDUSER" />
+                <ScalarProperty Name="IDTASK" ColumnName="IDTASK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
