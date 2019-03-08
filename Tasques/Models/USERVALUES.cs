@@ -19,5 +19,6 @@ namespace Tasques.Models
         public string VALUE { get; set; }
         public Nullable<int> IDUSER { get; set; }
         public Nullable<int> IDTASK { get; set; }
+        public Nullable<int> ORDER { get; set; }
     }
 }

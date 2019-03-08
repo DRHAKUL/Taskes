@@ -19,5 +19,6 @@ namespace Tasques.Models
         public string NAME { get; set; }
         public string PASSWORD { get; set; }
         public string SURNAMES { get; set; }
+        public string TOKEN { get; set; }
     }
 }

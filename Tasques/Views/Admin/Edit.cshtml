@@ -1,0 +1,105 @@
+﻿@model Tasques.Models.TASKS
+
+@{
+     
+
+                ViewBag.Title = "Edit";
+                Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts
+{
+    <script>
+        $('#nova').click(function (event) {
+            event.preventDefault();
+            var num = ($("#taskList input").length)-1;
+            $('#taskList').append('<tr><td><input type="text" id="part' + num + '"></td></tr>');
+        });
+        $('#change').click(function (event) {
+            event.preventDefault();
+            var taskName = $('#name').val()
+            var inputs = $("#taskList input");
+            var id = $("#idTask").val();
+            var tasks = [];
+            for (var a = 0; a < inputs.length; a++) {
+                tasks.push(inputs[a].value + ":0");
+            }
+            var json = JSON.stringify(tasks);
+            $.ajax({
+                type: "POST",
+                url: "Edit?IdTask=" + id+"&Name=" + taskName + "&TaskList=" + json,
+                contentType: "application/json; charset=utf-8",
+                //data: { Name: taskName},
+                success: function (d) {
+                    if (d.success == true)
+                        console.log("Save correct")
+                    else { }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert('Error!!');
+                }
+            });
+        });
+    </script>
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>TASKS</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.IDTASK)
+            <input type="hidden" id="idTask" value="@Model.IDTASK"/>
+            <div class="form-group">
+                @Html.LabelFor(model => model.NAME, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="text" id="name" value="@Model.NAME">
+                </div>
+            </div>
+            <button id="nova">Afegir</button>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Tasques, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10" id="taskList">
+                    <table>
+                        @{
+                            if (Model.Tasques != null)
+                            {
+                                var tasques = Model.Tasques.Split(',');
+                                var index = 0;
+                                foreach (var t in tasques)
+                                {
+                                    index++;
+                                    var td = t.Split(':')[0].Replace("[", "").Replace("\"", "");
+                                    <tr><td><input type="text" id="part' + index + '" value="@td"></td></tr>
+                                }
+                            }
+
+                        }
+
+
+                    </table>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" id="change" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</body>
+</html>

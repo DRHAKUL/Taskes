@@ -1,0 +1,5 @@
+﻿int longitud = 7;
+    Guid miGuid = Guid.NewGuid();
+    string token = Convert.ToBase64String(miGuid.ToByteArray());
+    token = token.Replace("=", "").Replace("+", "");
+    Console.WriteLine(token.Substring(0, longitud));

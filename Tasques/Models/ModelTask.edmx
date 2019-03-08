@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="tasquesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="tasquesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="GROUPS">
           <Key>
             <PropertyRef Name="IDGROUP" />
@@ -12,12 +12,20 @@
           <Property Name="IDGROUP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="GROUPNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="ROLS">
+          <Key>
+            <PropertyRef Name="IDROL" />
+          </Key>
+          <Property Name="IDROL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="TASKS">
           <Key>
             <PropertyRef Name="IDTASK" />
           </Key>
           <Property Name="IDTASK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Tasques" Type="varchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="USERGROUP">
           <Key>
@@ -26,6 +34,14 @@
           <Property Name="IDUSERGROUP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IDGROUP" Type="int" Nullable="false" />
           <Property Name="IDUSER" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USERROL">
+          <Key>
+            <PropertyRef Name="IDUSEROL" />
+          </Key>
+          <Property Name="IDUSEROL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDUSUARIO" Type="int" Nullable="false" />
+          <Property Name="IDROL" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="USERS">
           <Key>
@@ -36,6 +52,7 @@
           <Property Name="NAME" Type="varchar" MaxLength="50" />
           <Property Name="PASSWORD" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="SURNAMES" Type="varchar" MaxLength="50" />
+          <Property Name="TOKEN" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="USERTASK">
           <Key>
@@ -44,6 +61,8 @@
           <Property Name="IDUSERTASK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IDTASK" Type="int" />
           <Property Name="IDUSER" Type="int" />
+          <Property Name="TASK" Type="varchar" MaxLength="1000" />
+          <Property Name="USUARIGRUP" Type="varchar" MaxLength="2" />
         </EntityType>
         <EntityType Name="USERVALUES">
           <Key>
@@ -54,17 +73,19 @@
           <Property Name="VALUE" Type="nvarchar" MaxLength="50" />
           <Property Name="IDUSER" Type="int" />
           <Property Name="IDTASK" Type="int" />
+          <Property Name="ORDER" Type="int" />
         </EntityType>
         <EntityContainer Name="tasquesModelStoreContainer">
           <EntitySet Name="GROUPS" EntityType="Self.GROUPS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ROLS" EntityType="Self.ROLS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TASKS" EntityType="Self.TASKS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="USERGROUP" EntityType="Self.USERGROUP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USERROL" EntityType="Self.USERROL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="USERS" EntityType="Self.USERS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="USERTASK" EntityType="Self.USERTASK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="USERVALUES" EntityType="Self.USERVALUES" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="tasquesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -81,6 +102,7 @@
           </Key>
           <Property Name="IDTASK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Tasques" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="USERGROUP">
           <Key>
@@ -99,6 +121,7 @@
           <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="SURNAMES" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TOKEN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="USERTASK">
           <Key>
@@ -107,6 +130,8 @@
           <Property Name="IDUSERTASK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IDTASK" Type="Int32" />
           <Property Name="IDUSER" Type="Int32" />
+          <Property Name="TASK" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="USUARIGRUP" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="USERVALUES">
           <Key>
@@ -117,6 +142,7 @@
           <Property Name="VALUE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IDUSER" Type="Int32" />
           <Property Name="IDTASK" Type="Int32" />
+          <Property Name="ORDER" Type="Int32" />
         </EntityType>
         <EntityContainer Name="tasquesEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="GROUPS" EntityType="Self.GROUPS" />
@@ -125,7 +151,24 @@
           <EntitySet Name="USERS" EntityType="Self.USERS" />
           <EntitySet Name="USERTASK" EntityType="Self.USERTASK" />
           <EntitySet Name="USERVALUES" EntityType="Self.USERVALUES" />
+          <EntitySet Name="ROLS" EntityType="tasquesModel.ROLS" />
+          <EntitySet Name="USERROL" EntityType="tasquesModel.USERROL" />
         </EntityContainer>
+        <EntityType Name="ROLS">
+          <Key>
+            <PropertyRef Name="IDROL" />
+          </Key>
+          <Property Name="IDROL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="USERROL">
+          <Key>
+            <PropertyRef Name="IDUSEROL" />
+          </Key>
+          <Property Name="IDUSEROL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDUSUARIO" Type="Int32" Nullable="false" />
+          <Property Name="IDROL" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -143,6 +186,7 @@
           <EntitySetMapping Name="TASKS">
             <EntityTypeMapping TypeName="tasquesModel.TASKS">
               <MappingFragment StoreEntitySet="TASKS">
+                <ScalarProperty Name="Tasques" ColumnName="Tasques" />
                 <ScalarProperty Name="IDTASK" ColumnName="IDTASK" />
                 <ScalarProperty Name="NAME" ColumnName="NAME" />
               </MappingFragment>
@@ -160,6 +204,7 @@
           <EntitySetMapping Name="USERS">
             <EntityTypeMapping TypeName="tasquesModel.USERS">
               <MappingFragment StoreEntitySet="USERS">
+                <ScalarProperty Name="TOKEN" ColumnName="TOKEN" />
                 <ScalarProperty Name="IDUSER" ColumnName="IDUSER" />
                 <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
                 <ScalarProperty Name="NAME" ColumnName="NAME" />
@@ -171,6 +216,8 @@
           <EntitySetMapping Name="USERTASK">
             <EntityTypeMapping TypeName="tasquesModel.USERTASK">
               <MappingFragment StoreEntitySet="USERTASK">
+                <ScalarProperty Name="USUARIGRUP" ColumnName="USUARIGRUP" />
+                <ScalarProperty Name="TASK" ColumnName="TASK" />
                 <ScalarProperty Name="IDUSERTASK" ColumnName="IDUSERTASK" />
                 <ScalarProperty Name="IDTASK" ColumnName="IDTASK" />
                 <ScalarProperty Name="IDUSER" ColumnName="IDUSER" />
@@ -180,11 +227,29 @@
           <EntitySetMapping Name="USERVALUES">
             <EntityTypeMapping TypeName="tasquesModel.USERVALUES">
               <MappingFragment StoreEntitySet="USERVALUES">
+                <ScalarProperty Name="ORDER" ColumnName="ORDER" />
                 <ScalarProperty Name="IDUSERVALUE" ColumnName="IDUSERVALUE" />
                 <ScalarProperty Name="VALUENAME" ColumnName="VALUENAME" />
                 <ScalarProperty Name="VALUE" ColumnName="VALUE" />
                 <ScalarProperty Name="IDUSER" ColumnName="IDUSER" />
                 <ScalarProperty Name="IDTASK" ColumnName="IDTASK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROLS">
+            <EntityTypeMapping TypeName="tasquesModel.ROLS">
+              <MappingFragment StoreEntitySet="ROLS">
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="IDROL" ColumnName="IDROL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERROL">
+            <EntityTypeMapping TypeName="tasquesModel.USERROL">
+              <MappingFragment StoreEntitySet="USERROL">
+                <ScalarProperty Name="IDROL" ColumnName="IDROL" />
+                <ScalarProperty Name="IDUSUARIO" ColumnName="IDUSUARIO" />
+                <ScalarProperty Name="IDUSEROL" ColumnName="IDUSEROL" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

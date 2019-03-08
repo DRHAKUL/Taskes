@@ -1,0 +1,43 @@
+﻿@model Tasques.Models.USERTASK
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>USERTASK</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IDTASK)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDTASK)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IDUSER)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDUSER)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TASK)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TASK)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDUSERTASK }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

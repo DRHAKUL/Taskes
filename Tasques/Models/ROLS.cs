@@ -12,12 +12,9 @@ namespace Tasques.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class USERTASK
+    public partial class ROLS
     {
-        public int IDUSERTASK { get; set; }
-        public Nullable<int> IDTASK { get; set; }
-        public Nullable<int> IDUSER { get; set; }
-        public string TASK { get; set; }
-        public string USUARIGRUP { get; set; }
+        public int IDROL { get; set; }
+        public string NAME { get; set; }
     }
 }

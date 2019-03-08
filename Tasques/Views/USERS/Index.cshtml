@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Tasques.Models.USERS>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.USERNAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PASSWORD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SURNAMES)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.USERNAME)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NAME)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PASSWORD)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SURNAMES)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IDUSER }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IDUSER }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IDUSER })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,96 @@
+﻿@model IEnumerable<Tasques.Controllers.AssignarTasquesController.TasquesUsuari>
+@using Tasques.Models
+@{
+                /**/
+
+                /**/
+
+                /**/
+
+                ViewBag.Title = "Assignació de tasques";
+                Layout = "~/Views/Shared/_Layout.cshtml"; }
+@{ #line 4 "C:\Users\Toni\source\repos\Tasques\Tasques\Views\AssignarTasques\Index.cshtml"
+    /**/
+
+    List<TASKS> tList = new tasquesEntities().TASKS.ToList();
+    List<USERS> uList = new tasquesEntities().USERS.ToList();
+    List<GROUPS> gList = new tasquesEntities().GROUPS.ToList();
+
+}
+<h2>Assignació de tasques</h2>
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+
+@using (Html.BeginForm("Assignar", "AssignarTasques", FormMethod.Post))
+{
+<div class="row">
+    <div class="col-lg-4">
+        <select id="slTasca" name ="slTasca" class="form-control">
+            @{
+                foreach (var t in tList)
+                {
+                    <option value="@t.IDTASK" >@t.NAME</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="col-lg-4">
+        <select id="slusuari" class="form-control" name="slusuari">
+            @{
+
+                foreach (var u in uList)
+                {
+                    <option value="@u.IDUSER">@u.NAME</option>
+                }
+                foreach (var g in gList)
+                {
+                    <option value="@g.IDGROUP">@g.GROUPNAME</option>
+                }
+            }
+        </select>
+    </div>
+    <td><input type="submit" value="Submit" /></td>
+</div>
+    }
+        <table class="table">
+            <tr>
+                <th>
+                    Nom tasca
+                </th>
+                <th>
+                    Usuari / Grup
+                </th>
+                <th>
+                    Parts de la tasca
+                </th>
+                <th>
+                    Usuari / Grup
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nomTasca)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nomUsuari)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.partsTasca)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.usuariOGrup)
+                    </td>
+                    <td>
+                        @*@Html.ActionLink("Edit", "Edit", new { id = item.IDUSERTASK }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.IDUSERTASK }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.IDUSERTASK })*@
+                    </td>
+                </tr>
+            }
+
+        </table>

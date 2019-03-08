@@ -13,9 +13,9 @@ namespace Tasques.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class TasquesEntities : DbContext
+    public partial class tasquesEntities : DbContext
     {
-        public TasquesEntities()
+        public tasquesEntities()
             : base("name=tasquesEntities")
         {
         }
@@ -31,5 +31,7 @@ namespace Tasques.Models
         public virtual DbSet<USERS> USERS { get; set; }
         public virtual DbSet<USERTASK> USERTASK { get; set; }
         public virtual DbSet<USERVALUES> USERVALUES { get; set; }
+        public virtual DbSet<ROLS> ROLS { get; set; }
+        public virtual DbSet<USERROL> USERROL { get; set; }
     }
 }

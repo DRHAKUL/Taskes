@@ -12,7 +12,7 @@ namespace Tasques.Controllers
     
     public class UsuariController : Controller
     {
-        private static TasquesEntities db = new TasquesEntities();
+        private static tasquesEntities db = new tasquesEntities();
         private static List<USERTASK> llistaUserTask = db.USERTASK.ToList();
         private static List<TASKS> llistaTask = db.TASKS.ToList();
         private static int idUser = 1;

@@ -16,5 +16,6 @@ namespace Tasques.Models
     {
         public int IDTASK { get; set; }
         public string NAME { get; set; }
+        public string Tasques { get; set; }
     }
 }
