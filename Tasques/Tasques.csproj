@@ -218,8 +218,10 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AssignarTasques.cs" />
+    <Compile Include="Controllers\GROUPSController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TASKSController.cs" />
     <Compile Include="Controllers\USERSController.cs" />
     <Compile Include="Controllers\UsuariController.cs" />
     <Compile Include="Global.asax.cs">
@@ -366,6 +368,16 @@
     <Content Include="Views\AssignarTasques\Details.cshtml" />
     <Content Include="Views\AssignarTasques\Edit.cshtml" />
     <Content Include="Views\AssignarTasques\Index.cshtml" />
+    <Content Include="Views\GROUPS\Create.cshtml" />
+    <Content Include="Views\GROUPS\Delete.cshtml" />
+    <Content Include="Views\GROUPS\Details.cshtml" />
+    <Content Include="Views\GROUPS\Edit.cshtml" />
+    <Content Include="Views\GROUPS\Index.cshtml" />
+    <Content Include="Views\TASKS\Create.cshtml" />
+    <Content Include="Views\TASKS\Delete.cshtml" />
+    <Content Include="Views\TASKS\Details.cshtml" />
+    <Content Include="Views\TASKS\Edit.cshtml" />
+    <Content Include="Views\TASKS\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

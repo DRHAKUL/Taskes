@@ -1,0 +1,40 @@
+﻿@model List<Tasques.Controllers.TASKSController.TaskUG>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Nom de la tasque
+        </th>
+        <th>
+            Usuari/Nom grup
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.task.NAME)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nomGrup)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.task.IDTASK }) |
+            @Html.ActionLink("Details", "Details", new { id = item.task.IDTASK }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.task.IDTASK })
+        </td>
+    </tr>
+}
+
+</table>

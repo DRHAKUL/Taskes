@@ -24,7 +24,8 @@ namespace Tasques.Controllers
             public string usuariOGrup { get; set; }
         }
         // GET: AssignarTasque
-        public ActionResult Index()
+
+        public List<TasquesUsuari> getTasquesUsuari()
         {
             List<TasquesUsuari> llistaTasquesUsuari = new List<TasquesUsuari>();
             var tasques = (from t in db.USERTASK
@@ -38,10 +39,10 @@ namespace Tasques.Controllers
                                  where t.USUARIGRUP == "G"
                                  select new { idUserTask = t.IDUSERTASK, idUser = t.IDUSER, nomUser = g.GROUPNAME, idTask = ta.IDTASK, nomTask = ta.NAME, parts = ta.Tasques, usuariOGrup = t.USUARIGRUP }
                                  );
-                      
-            foreach(var task in tasques)
+
+            foreach (var task in tasques)
             {
-                TasquesUsuari  tu = new TasquesUsuari();
+                TasquesUsuari tu = new TasquesUsuari();
                 tu.iduserTask = task.idUserTask;
                 tu.idUsuari = (int)task.idUser;
                 tu.nomUsuari = task.nomUser;
@@ -51,7 +52,12 @@ namespace Tasques.Controllers
                 tu.usuariOGrup = task.usuariOGrup;
                 llistaTasquesUsuari.Add(tu);
             }
-            return View(llistaTasquesUsuari);
+            return llistaTasquesUsuari;
+        }
+        public ActionResult Index()
+        {
+            
+            return View(getTasquesUsuari());
         }
 
         // GET: AssignarTasque/Details/5
@@ -157,16 +163,36 @@ namespace Tasques.Controllers
             }
             base.Dispose(disposing);
         }
-        public class Assignacio{
+        public class Assignacio
+        {
             public int idTask { get; set; }
             public int idUserG { get; set; }
         }
         [HttpPost]
         public ActionResult Assignar()
         {
-            var idTasca = Request.Params["slTasca"];
-            var idUser = Request.Params["slusuari"];
-            return View("Index");
+            var idTasca = Int32.Parse(Request.Params["slTasca"]);
+            var id = Request.Params["slusuari"];
+          
+            
+            if (idTasca > 0 && !string.IsNullOrEmpty(id))
+            {
+                int idUser = Int32.Parse(id.Split(',')[0]);
+                string tipo = id.Split(',')[1];
+                var finded = db.TASKS.FirstOrDefault(x => x.IDTASK == (idTasca));
+                USERTASK nova = new USERTASK
+                {
+                    IDTASK = idTasca,
+                    IDUSER = idUser,
+                    TASK = finded.Tasques,
+                    USUARIGRUP = tipo
+
+                };
+                db.USERTASK.Add(nova);
+                db.SaveChanges();
+            }
+            return View("Index", getTasquesUsuari());
         }
+        
     }
 }

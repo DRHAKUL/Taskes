@@ -1,14 +1,10 @@
 ﻿@model IEnumerable<Tasques.Controllers.AssignarTasquesController.TasquesUsuari>
 @using Tasques.Models
 @{
-                /**/
 
-                /**/
-
-                /**/
-
-                ViewBag.Title = "Assignació de tasques";
-                Layout = "~/Views/Shared/_Layout.cshtml"; }
+    ViewBag.Title = "Assignació de tasques";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 @{ #line 4 "C:\Users\Toni\source\repos\Tasques\Tasques\Views\AssignarTasques\Index.cshtml"
     /**/
 
@@ -24,36 +20,40 @@
     </p>*@
 
 @using (Html.BeginForm("Assignar", "AssignarTasques", FormMethod.Post))
-{
-<div class="row">
-    <div class="col-lg-4">
-        <select id="slTasca" name ="slTasca" class="form-control">
-            @{
-                foreach (var t in tList)
-                {
-                    <option value="@t.IDTASK" >@t.NAME</option>
-                }
-            }
-        </select>
-    </div>
-    <div class="col-lg-4">
-        <select id="slusuari" class="form-control" name="slusuari">
-            @{
+    {
+        <div class="row">
+            <div class="col-lg-4">
+                <select id="slTasca" name="slTasca" class="form-control">
+                    <option value=""></option>
+                    @{
 
-                foreach (var u in uList)
-                {
-                    <option value="@u.IDUSER">@u.NAME</option>
-                }
-                foreach (var g in gList)
-                {
-                    <option value="@g.IDGROUP">@g.GROUPNAME</option>
-                }
-            }
-        </select>
-    </div>
-    <td><input type="submit" value="Submit" /></td>
-</div>
-    }
+                        foreach (var t in tList)
+                        {
+                            <option value="@t.IDTASK">@t.NAME</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-lg-4">
+                <select id="slusuari" class="form-control" name="slusuari">
+                    <option value=""></option>
+
+                    @{
+
+                        foreach (var u in uList)
+                        {
+                            <option value="@u.IDUSER,U">@u.NAME</option>
+                        }
+                        foreach (var g in gList)
+                        {
+                            <option value="@g.IDGROUP,G">@g.GROUPNAME</option>
+                        }
+                    }
+                </select>
+            </div>
+            <td><input type="submit" value="Assignar" /></td>
+        </div>
+
         <table class="table">
             <tr>
                 <th>
@@ -87,10 +87,11 @@
                     </td>
                     <td>
                         @*@Html.ActionLink("Edit", "Edit", new { id = item.IDUSERTASK }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.IDUSERTASK }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.IDUSERTASK })*@
+        @Html.ActionLink("Details", "Details", new { id = item.IDUSERTASK }) *@
+                        @Html.ActionLink("Delete", "Delete", new { id = item.iduserTask })
                     </td>
                 </tr>
             }
 
         </table>
+    }

@@ -83,6 +83,13 @@ namespace Tasques.Utils
             }
 
         }
+        public static int getUserId(string token)
+        {
+            var userID = (from us in db.USERS
+                          where us.TOKEN == token
+                          select us).ToList();
+            return userID[0].IDUSER;
+        }
     }
     
 }
