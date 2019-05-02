@@ -14,10 +14,7 @@ namespace Tasques.Controllers
     public class USERSController : Controller
     {
         private tasquesEntities db = new tasquesEntities();
-        public class LogUser{
-            public string  name { get; set; }
-            public string password { get; set; }
-        }
+      
         // GET: USERS
         public ActionResult Index()
         {
@@ -25,69 +22,8 @@ namespace Tasques.Controllers
             return View(db.USERS.ToList());
         }
        
-        public ActionResult Login()
-        {
-            HttpCookie cookie = HttpContext.Request.Cookies.Get("TOKEN");
-            if (cookie == null)
-            {
-               
-                return View();
-                
-            }
-            else
-            {
-                CurrentUser u =  UtilsToken.isValidToken(cookie.Value);
-                if (u != null)
-                {
-                    return RedirectToAction("Index", "USERS");
-                }
-                else
-                {
-                    return View();
-                }
-                
-            }
-            
-            
-        }
-        [HttpPost]
-        public ActionResult signIn(LogUser u)
-        {
-            HttpCookie cookie = HttpContext.Request.Cookies.Get("TOKEN");
-            if (cookie == null)
-            {
-                
-                CurrentUser good = UtilsToken.isValidUser(u.name, u.password);
-                if (good == null)
-                {
-                    TempData["msg"] = "<script>alert('Usuari o contrasenya no valids');</script>";
-                    return RedirectToAction("Login", "USERS");
-                }
-                else
-                {
-                    HttpCookie mycookie = new HttpCookie("TOKEN");
-                    mycookie.Value = good.token;
-                    var response = HttpContext.Response.Cookies;
-                    HttpContext.Response.Cookies.Remove("TOKEN");
-                    HttpContext.Response.Cookies.Add(mycookie);
-                    if (good.rol == 1)
-                    {
-                        return RedirectToAction("Index", "Admin");
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Usuari");
-                    }
-                    
-                }
-               
-                
-            }
-            else
-            {
-                return View();
-            }
-        }
+   
+       
       
         // GET: USERS/Details/5
         public ActionResult Details(int? id)

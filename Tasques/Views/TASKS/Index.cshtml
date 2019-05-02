@@ -1,19 +1,19 @@
 ﻿@model List<Tasques.Controllers.TASKSController.TaskUG>
-
+@using Tasques.Utils
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>TASQUES USUARI</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Nova Tasca", "Create", "TASKS", null, new { @class = "btn btn-primary btn-large" })
 </p>
 <table class="table">
     <tr>
         <th>
-            Nom de la tasque
+            Nom de la tasca
         </th>
         <th>
             Usuari/Nom grup
@@ -21,20 +21,45 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.task.NAME)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nomGrup)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.task.IDTASK }) |
-            @Html.ActionLink("Details", "Details", new { id = item.task.IDTASK }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.task.IDTASK })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+
+    
+        if (!Utils.IsCompleted(item.task.Tasques))
+        {
+        <tr class="noCompleta">
+            <td>
+                @Html.DisplayFor(modelItem => item.task.NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nomGrup, new { @class = "text-center" })
+            </td>
+            <td>
+                @Html.ActionLink("Fer tasca", "Edit", new { id = item.task.IDTASK }, new { @class = "btn btn-warning btn-large" })
+                @*@Html.ActionLink("Details", "Details", new { id = item.task.IDTASK }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.task.IDTASK })*@
+            </td>
+        </tr>
+        }
+        else
+        {
+        <tr class="nCompleta">
+            <td>
+                @Html.DisplayFor(modelItem => item.task.NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nomGrup)
+            </td>
+            <td>
+                @Html.ActionLink("Modificar", "Edit", new { id = item.task.IDTASK }, new { @class = "btn btn-success btn-large" })
+                @*@Html.ActionLink("Details", "Details", new { id = item.task.IDTASK }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.task.IDTASK })*@
+                
+            </td>
+        </tr>
+        }
+ 
+
+    }
 
 </table>

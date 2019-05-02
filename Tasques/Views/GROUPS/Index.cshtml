@@ -8,7 +8,7 @@
 <h2>ADMINISTRACIÓ DE GRUPS</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Nou grup", "Create", "GROUPS", null, new { @class = "btn btn-primary btn-large" })
 </p>
 <table class="table">
     <tr>
@@ -24,9 +24,9 @@
             @Html.DisplayFor(modelItem => item.GROUPNAME)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IDGROUP }) |
+            @Html.ActionLink("Editar", "Edit", new { id=item.IDGROUP }, new { @class = "btn btn-primary btn-large" }) 
             @*@Html.ActionLink("Details", "Details", new { id=item.IDGROUP }) |*@
-            @Html.ActionLink("Delete", "Delete", new { id=item.IDGROUP })
+            @Html.ActionLink("Borrar", "Delete", new { id=item.IDGROUP }, new { @class = "btn btn-danger btn-large" })
         </td>
     </tr>
 }

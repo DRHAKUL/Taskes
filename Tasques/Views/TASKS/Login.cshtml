@@ -1,5 +1,5 @@
 ﻿
-@model Tasques.Controllers.USERSController.LogUser
+@model Tasques.Controllers.TASKSController.LogUser
 @Html.Raw(TempData["msg"])
 @{
     Layout = null;
@@ -25,7 +25,7 @@
             @*<div class="fadeIn first">
                 <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
             </div>*@
-            @using (Html.BeginForm("signIn", "USERS", FormMethod.Post))
+            @using (Html.BeginForm("signIn", "TASKS", FormMethod.Post))
             {
 
                 <!-- Login Form -->

@@ -59,8 +59,8 @@
             <PropertyRef Name="IDUSERTASK" />
           </Key>
           <Property Name="IDUSERTASK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IDTASK" Type="int" />
-          <Property Name="IDUSER" Type="int" />
+          <Property Name="IDTASK" Type="int" Nullable="false" />
+          <Property Name="IDUSER" Type="int" Nullable="false" />
           <Property Name="TASK" Type="varchar" MaxLength="1000" />
           <Property Name="USUARIGRUP" Type="varchar" MaxLength="2" />
         </EntityType>
@@ -128,8 +128,8 @@
             <PropertyRef Name="IDUSERTASK" />
           </Key>
           <Property Name="IDUSERTASK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IDTASK" Type="Int32" />
-          <Property Name="IDUSER" Type="Int32" />
+          <Property Name="IDTASK" Type="Int32" Nullable="false" />
+          <Property Name="IDUSER" Type="Int32" Nullable="false" />
           <Property Name="TASK" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="USUARIGRUP" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
         </EntityType>

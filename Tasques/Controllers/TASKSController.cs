@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Tasques.Models;
 using Tasques.Utils;
+using static Tasques.Utils.Utils;
 
 namespace Tasques.Controllers
 {
@@ -25,33 +26,110 @@ namespace Tasques.Controllers
             public TASKS task { get; set; }
             public string nomGrup { get; set; }
         }
-        // GET: TASKS
-        public ActionResult Index()
+        public class LogUser
+        {
+            public string name { get; set; }
+            public string password { get; set; }
+        }
+        [HttpPost]
+        public ActionResult signIn(LogUser u)
         {
             HttpCookie cookie = HttpContext.Request.Cookies.Get("TOKEN");
-            List<TaskUG> taskUg = new List<TaskUG>();
+            if (cookie == null)
+            {
+
+                CurrentUser good = UtilsToken.isValidUser(u.name, u.password);
+                if (good == null)
+                {
+                    TempData["msg"] = "<script>alert('Usuari o contrasenya no valids');</script>";
+                    return RedirectToAction("Login", "USERS");
+                }
+                else
+                {
+                    HttpCookie mycookie = new HttpCookie("TOKEN");
+                    mycookie.Value = good.token;
+                    var response = HttpContext.Response.Cookies;
+                    HttpContext.Response.Cookies.Remove("TOKEN");
+                    HttpContext.Response.Cookies.Add(mycookie);
+                    if (good.rol == 1)
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "TASKS");
+                    }
+
+                }
+
+
+            }
+            else
+            {
+                return RedirectToAction("Index", "TASKS");
+            }
+        }
+        public ActionResult Login()
+        {
+            HttpCookie cookie = HttpContext.Request.Cookies.Get("TOKEN");
+            if (cookie == null)
+            {
+
+                return View();
+
+            }
+            else
+            {
+                CurrentUser u = UtilsToken.isValidToken(cookie.Value);
+                if (u != null)
+                {
+                    return RedirectToAction("Index", "TASKS");
+                }
+                else
+                {
+                    return View();
+                }
+
+            }
+
+
+        }
+        // GET: TASKS
+        private List<TaskUG> GetUserTask(HttpCookie cookie)
+        {
+
             int idUser = UtilsToken.getUserId(cookie.Value);
+            List<TaskUG> taskUg = new List<TaskUG>();
             var userGroup = (from g in db.GROUPS
                              join ug in db.USERGROUP on g.IDGROUP equals ug.IDGROUP
                              where ug.IDUSER == idUser
                              select g.IDGROUP).ToList();
-          
-            List<TASKS> userListTask = (from t in db.TASKS
-                                           join ut in db.USERTASK on t.IDTASK equals ut.IDTASK
-                                           where ut.IDUSER == idUser                                         
-                                           select t).ToList();
-            foreach (var ul in userListTask)
+
+            var userTask = (from t in db.TASKS
+                            join uta in db.USERTASK on t.IDTASK equals uta.IDTASK
+                            where uta.IDUSER == idUser
+                            select new { idtask = uta.IDUSERTASK, name = t.NAME, tasques = uta.TASK });
+
+            foreach (var ut in userTask)
             {
-                taskUg.Add(new TaskUG(ul, "U"));
+
+                TASKS t = new TASKS
+                {
+                    IDTASK = ut.idtask,
+                    NAME = ut.name,
+                    Tasques = ut.tasques
+                };
+                taskUg.Add(new TaskUG(t, "U"));
             }
             foreach (var g in userGroup)
             {
                 var groupTask = (from t in db.TASKS
-                                join ut in db.USERTASK on t.IDTASK equals ut.IDTASK
-                                join gr in db.GROUPS on ut.IDUSER equals gr.IDGROUP
-                                where ut.IDUSER == g                                         
-                                select new { idtask =t.IDTASK,name=t.NAME, tasques=t.Tasques,nomgrup= gr.GROUPNAME});
-                foreach(var gt in groupTask){
+                                 join ut in db.USERTASK on t.IDTASK equals ut.IDTASK
+                                 join gr in db.GROUPS on ut.IDUSER equals gr.IDGROUP
+                                 where ut.IDUSER == g
+                                 select new { idtask = t.IDTASK, name = t.NAME, tasques = t.Tasques, nomgrup = gr.GROUPNAME });
+                foreach (var gt in groupTask)
+                {
                     TASKS t = new TASKS
                     {
                         IDTASK = gt.idtask,
@@ -59,9 +137,20 @@ namespace Tasques.Controllers
                         Tasques = gt.tasques
                     };
                     taskUg.Add(new TaskUG(t, gt.nomgrup));
-                }       
+                }
             }
-            return View(taskUg);
+            return taskUg;
+        }
+
+        public ActionResult Index()
+        {
+            HttpCookie cookie = HttpContext.Request.Cookies.Get("TOKEN");
+            if (cookie == null)
+            {
+                return RedirectToAction("Login", "TASKS");
+            }
+
+            return View(GetUserTask(cookie));
         }
 
         // GET: TASKS/Details/5
@@ -109,12 +198,16 @@ namespace Tasques.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TASKS tASKS = db.TASKS.Find(id);
-            if (tASKS == null)
+            USERTASK uASKS = db.USERTASK.FirstOrDefault(x=>x.IDUSERTASK == id);
+            var name = (from t in db.TASKS
+                        where t.IDTASK == uASKS.IDTASK
+                        select t.NAME).ToList();
+            uASKS.USUARIGRUP = name[0];
+            if (uASKS == null)
             {
                 return HttpNotFound();
             }
-            return View(tASKS);
+            return View(uASKS);
         }
 
         // POST: TASKS/Edit/5
@@ -133,6 +226,49 @@ namespace Tasques.Controllers
             return View(tASKS);
         }
 
+        //http://localhost:51684/TASKS/Edit/ChangeState?posPart=1&nomPart=test1&idTasks=1008
+        [HttpPost]
+        public ActionResult ChangeState()
+        {
+            string valor = Request.Params["valor"];
+            int idTask = 0;
+            string tascaCanviada = "";
+            if (!string.IsNullOrEmpty(valor))
+            {
+                string nomPart = valor.Split('+')[0];
+                string posPart = valor.Split('+')[1];
+                idTask = Int32.Parse(valor.Split('+')[2]);
+                var userTask = (from t in db.USERTASK
+                                where t.IDUSERTASK == idTask
+                                select t).ToList();
+                int contador = 0;
+
+
+                Dictionary<int, Part> dictioTask = Utils.Utils.JsonToDic(userTask[0].TASK);
+                string valorPart = dictioTask[Int32.Parse(posPart)].valor;
+                if (valorPart == "1")
+                {
+                    dictioTask[Int32.Parse(posPart)].valor = "0";
+                }
+                else if(valorPart == "0")
+                {
+                    dictioTask[Int32.Parse(posPart)].valor = "1";
+                }
+                else
+                {
+                    dictioTask[Int32.Parse(posPart)].valor = "0";
+                }
+                tascaCanviada = Utils.Utils.DicToJson(dictioTask);
+            }
+        
+            var result = db.USERTASK.SingleOrDefault(b => b.IDUSERTASK == idTask);
+            if (result != null)
+            {
+                result.TASK = tascaCanviada;
+                db.SaveChanges();
+            }
+            return RedirectToAction(idTask.ToString(), "TASKS/Edit");
+        }
         // GET: TASKS/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -167,5 +303,6 @@ namespace Tasques.Controllers
             }
             base.Dispose(disposing);
         }
+
     }
 }

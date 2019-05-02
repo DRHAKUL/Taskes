@@ -13,18 +13,20 @@
     <title>Index</title>
 </head>
 <body>
+    <h2>Creació de tasques</h2>
     <p>
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Nova Tasca", "Create", "TASKS", null, new { @class = "btn btn-primary btn-large" })
+        @*@Html.ActionLink("Nova Tasca", "Create")*@
     </p>
     <table class="table">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.NAME)
             </th>
-            <th>
+            @*<th>
 
                 @Html.DisplayNameFor(model => model.Tasques)
-            </th>
+            </th>*@
             <th></th>
         </tr>
 
@@ -34,13 +36,13 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.NAME)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.Tasques)
-                </td>
+                </td>*@
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.IDTASK }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.IDTASK }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.IDTASK })
+                    @Html.ActionLink("Editar", "Edit", new { id = item.IDTASK }, new { @class = "btn btn-primary btn-large" })
+                    @*@Html.ActionLink("Details", "Details", new { id = item.IDTASK }) |*@
+                    @Html.ActionLink("Borrar", "Delete", new { id = item.IDTASK }, new { @class = "btn btn-danger btn-large" })
                 </td>
             </tr>
         }

@@ -272,6 +272,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\CurrentUser.cs" />
+    <Compile Include="Utils\Utils.cs" />
     <Compile Include="Utils\UtilsToken.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -281,6 +282,9 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\ok.png" />
+    <Content Include="fonts\tasques.jpg" />
+    <Content Include="fonts\tornar.png" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Models\ModelTask.Context.tt">
@@ -357,7 +361,7 @@
     <Content Include="Views\USERS\Details.cshtml" />
     <Content Include="Views\USERS\Edit.cshtml" />
     <Content Include="Views\USERS\Index.cshtml" />
-    <Content Include="Views\USERS\Login.cshtml" />
+    <Content Include="Views\TASKS\Login.cshtml" />
     <Content Include="Views\Admin\Create.cshtml" />
     <Content Include="Views\Admin\Delete.cshtml" />
     <Content Include="Views\Admin\Details.cshtml" />

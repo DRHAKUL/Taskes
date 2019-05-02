@@ -15,8 +15,8 @@ namespace Tasques.Models
     public partial class USERTASK
     {
         public int IDUSERTASK { get; set; }
-        public Nullable<int> IDTASK { get; set; }
-        public Nullable<int> IDUSER { get; set; }
+        public int IDTASK { get; set; }
+        public int IDUSER { get; set; }
         public string TASK { get; set; }
         public string USUARIGRUP { get; set; }
     }

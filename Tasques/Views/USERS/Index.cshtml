@@ -8,7 +8,8 @@
 <h2>ADMINISTRACIÓ USUARIS</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+
+    @Html.ActionLink("Nou usuari", "Create", "TASKS", null, new { @class = "btn btn-primary btn-large" })
 </p>
 <table class="table">
     <tr>
@@ -42,9 +43,9 @@
             @Html.DisplayFor(modelItem => item.SURNAMES)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IDUSER }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IDUSER }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IDUSER })
+            @Html.ActionLink("Editar", "Edit", new { id=item.IDUSER }, new { @class = "btn btn-primary btn-large" }) 
+            @*@Html.ActionLink("Details", "Details", new { id=item.IDUSER }) |*@
+            @Html.ActionLink("Borrar", "Delete", new { id=item.IDUSER }, new { @class = "btn btn-danger btn-large" })
         </td>
     </tr>
 }

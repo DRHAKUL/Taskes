@@ -51,9 +51,9 @@
                     }
                 </select>
             </div>
-            <td><input type="submit" value="Assignar" /></td>
+            <td><input type="submit" value="Assignar"  class="btn btn-group btn-primary"/></td>
         </div>
-
+        <br/>
         <table class="table">
             <tr>
                 <th>
@@ -62,12 +62,13 @@
                 <th>
                     Usuari / Grup
                 </th>
-                <th>
+                @*<th>
                     Parts de la tasca
-                </th>
+                </th>*@
                 <th>
                     Usuari / Grup
                 </th>
+                <th></th>
             </tr>
 
             @foreach (var item in Model)
@@ -79,16 +80,16 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.nomUsuari)
                     </td>
-                    <td>
+                    @*<td>
                         @Html.DisplayFor(modelItem => item.partsTasca)
-                    </td>
+                    </td>*@
                     <td>
                         @Html.DisplayFor(modelItem => item.usuariOGrup)
                     </td>
                     <td>
                         @*@Html.ActionLink("Edit", "Edit", new { id = item.IDUSERTASK }) |
         @Html.ActionLink("Details", "Details", new { id = item.IDUSERTASK }) *@
-                        @Html.ActionLink("Delete", "Delete", new { id = item.iduserTask })
+                        @Html.ActionLink("Borrar", "Delete", new { id = item.iduserTask }, new { @class = "btn btn-danger btn-large" })
                     </td>
                 </tr>
             }

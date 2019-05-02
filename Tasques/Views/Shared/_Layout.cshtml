@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Taskes</title>
+    
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
   
@@ -18,16 +19,28 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Nombre de aplicación", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <img src="~/fonts/tasques.jpg" height="40" width="40">><img />
+                @*@Html.ActionLink("TASQUES", "Login", "USERS", new { area = "" }, new { @class = "navbar-brand" })*@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Tasques", "Index", "TASKS")</li>
-                    <li>@Html.ActionLink("Creació tasques", "Index", "Admin")</li>
-                    <li>@Html.ActionLink("Assignació", "Index", "AssignarTasques")</li>
-                    <li>@Html.ActionLink("Admin Users", "Login", "USERS")</li>
-                    <li>@Html.ActionLink("Admin Grups", "Index", "GROUPS")</li>
-                    <li>@Html.ActionLink("Principal", "Index", "Usuari")</li>
+                    @{
+                        HttpCookie cookie = HttpContext.Current.Request.Cookies.Get("TOKEN");
+                        if (cookie != null && Tasques.Utils.UtilsToken.Isadmin(cookie.Value))
+                        {
+                            <li>@Html.ActionLink("Tasques", "Index", "TASKS")</li>
+                            <li>@Html.ActionLink("Creació tasques", "Index", "Admin")</li>
+                            <li>@Html.ActionLink("Assignació", "Index", "AssignarTasques")</li>
+                            <li>@Html.ActionLink("Admin Users", "Index", "USERS")</li>
+                            <li>@Html.ActionLink("Admin Grups", "Index", "GROUPS")</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("Tasques", "Index", "TASKS")</li>
+                        }
+                    }
+
+
 
                 </ul>
                 @Html.Partial("_LoginPartial")
@@ -38,7 +51,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - TASKES</p>
+            <p>&copy; @DateTime.Now.Year - TASQUES</p>
         </footer>
     </div>
 
